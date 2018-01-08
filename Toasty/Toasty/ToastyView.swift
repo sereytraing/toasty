@@ -30,7 +30,6 @@ class ToastyView: UIView {
             ).instantiate(withOwner: nil, options: nil).first as! ToastyView
     }
     
-    
     static func showIn(viewController: UIViewController, message: String) {
         var displayVC = viewController
         if let tabController = viewController as? UITabBarController {
