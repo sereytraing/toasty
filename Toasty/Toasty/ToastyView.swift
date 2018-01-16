@@ -13,6 +13,7 @@ public class ToastyView: UIView {
     //TACHE
     //Faire une structure ToastyStyle avec plusieurs attributs de perso
     //Dans la structure, ne pas oublier les tailles des vues et changer avec les valeurs en durs
+    //Factoriser le code si possible
     
     //Pour tester
     //Créer un projet
