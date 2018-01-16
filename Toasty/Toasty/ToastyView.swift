@@ -22,16 +22,19 @@ public class ToastyView: UIView {
     //Appeler la fonction ToastyView.showToast(.....)
     //Ne pas oublier de mettre dans le projet dans le Embeded Binaries le framework
     
+    static var toastyView = ToastyView()
+    
     public static func showToast(viewController: UIViewController, withSimpleMessage message: String?) {
         let screenSize: CGRect = UIScreen.main.bounds
         var messageLabel: UILabel?
-        let toastyView = ToastyView()
+        
+        toastyView.checkIsActive()
         
         //Position de la view ici
         toastyView.frame = CGRect(x: 10, y: screenSize.height-60 , width: viewController.view.frame.size.width - 20, height: 50)
         toastyView.alpha = 0.0
         toastyView.layer.cornerRadius = 10.0
-        toastyView.backgroundColor = UIColor.red.withAlphaComponent(0.6)
+        toastyView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         toastyView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
         
         if let message = message {
@@ -63,13 +66,14 @@ public class ToastyView: UIView {
         let screenSize: CGRect = UIScreen.main.bounds
         var messageLabel: UILabel?
         var imageView: UIImageView?
-        let toastyView = ToastyView()
+ 
+        toastyView.checkIsActive()
         
         //Position de la view ici
         toastyView.frame = CGRect(x: 10, y: screenSize.height-110 , width: viewController.view.frame.size.width - 20, height: 100)
         toastyView.alpha = 0.0
         toastyView.layer.cornerRadius = 10.0
-        toastyView.backgroundColor = UIColor.red.withAlphaComponent(0.6) //pour la transparence
+        toastyView.backgroundColor = UIColor.yellow.withAlphaComponent(0.3) //pour la transparence
         toastyView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
         
         if let image = image {
@@ -111,14 +115,14 @@ public class ToastyView: UIView {
     
     public static func showToast(viewController: UIViewController, withSimpleImage image: UIImage?) {
         let screenSize: CGRect = UIScreen.main.bounds
-        let toastyView = ToastyView()
         var imageView: UIImageView?
-        
+
+        toastyView.checkIsActive()
         //Position de la view ici
         toastyView.frame = CGRect(x: 10, y: screenSize.height-110 , width: 100, height: 100)
         toastyView.alpha = 0.0
         toastyView.layer.cornerRadius = 10.0
-        toastyView.backgroundColor = UIColor.red.withAlphaComponent(0.6)
+        toastyView.backgroundColor = UIColor.red.withAlphaComponent(0.3)
         toastyView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
         
         if let image = image {
@@ -155,6 +159,13 @@ public class ToastyView: UIView {
         }, completion: { _ in
             self.removeFromSuperview()
         })
+    }
+    
+    func checkIsActive() {
+        if self.alpha > 0.0 {
+            self.removeFromSuperview()
+        }
+        ToastyView.toastyView = ToastyView()
     }
 }
 
