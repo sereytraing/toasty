@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0FB333C520040EBD00833560 /* Toasty.h in Headers */ = {isa = PBXBuildFile; fileRef = 0FB333C320040EBD00833560 /* Toasty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0FB333CC20040F0700833560 /* ToastyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB333CB20040F0700833560 /* ToastyView.swift */; };
-		0FB333CE20040F2C00833560 /* ToastyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FB333CD20040F2C00833560 /* ToastyView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -17,7 +16,6 @@
 		0FB333C320040EBD00833560 /* Toasty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Toasty.h; sourceTree = "<group>"; };
 		0FB333C420040EBD00833560 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FB333CB20040F0700833560 /* ToastyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastyView.swift; sourceTree = "<group>"; };
-		0FB333CD20040F2C00833560 /* ToastyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToastyView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +49,6 @@
 			isa = PBXGroup;
 			children = (
 				0FB333CB20040F0700833560 /* ToastyView.swift */,
-				0FB333CD20040F2C00833560 /* ToastyView.xib */,
 				0FB333C320040EBD00833560 /* Toasty.h */,
 				0FB333C420040EBD00833560 /* Info.plist */,
 			);
@@ -128,7 +125,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FB333CE20040F2C00833560 /* ToastyView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
