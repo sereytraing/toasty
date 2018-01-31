@@ -23,130 +23,115 @@ public class ToastyView: UIView {
     //Ne pas oublier de mettre dans le projet dans le Embeded Binaries le framework
     
     static var toastyView = ToastyView()
+    static var style = ToastyStyle()
     
     public static func showToast(viewController: UIViewController, withSimpleMessage message: String?) {
-        let screenSize: CGRect = UIScreen.main.bounds
-        var messageLabel: UILabel?
-        
-        toastyView.checkIsActive()
-        
-        //Position de la view ici
-        toastyView.frame = CGRect(x: 10, y: screenSize.height-60 , width: viewController.view.frame.size.width - 20, height: 50)
-        toastyView.alpha = 0.0
-        toastyView.layer.cornerRadius = 10.0
-        toastyView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        toastyView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+        initToastyView(forToast: 1, viewController)
         
         if let message = message {
-            messageLabel = UILabel()
-            messageLabel?.text = message
-            messageLabel?.numberOfLines = 0
-            messageLabel?.textAlignment = .center
-            messageLabel?.lineBreakMode = .byTruncatingTail;
-            messageLabel?.backgroundColor = UIColor.clear
-        
+            createMessage(message, forToast:1, with: nil)
         }
         
-        if let messageLabel = messageLabel {
-            toastyView.addSubview(messageLabel)
-            messageLabel.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint(item: messageLabel, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: toastyView, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0).isActive = true
-            NSLayoutConstraint(item: messageLabel, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: toastyView, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0).isActive = true
-            NSLayoutConstraint(item: messageLabel, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: toastyView.frame.width - 40).isActive = true
-            NSLayoutConstraint(item: messageLabel, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 30).isActive = true
-        }
-        
-        viewController.view.addSubview(toastyView)
-        toastyView.show()
-        toastyView.perform(#selector(hide), with: nil, afterDelay: 3.0)
+        enableToast(viewController)
     }
     
-    
     public static func showToast(viewController: UIViewController, withMessage message: String?, andImage image: UIImage?) {
-        let screenSize: CGRect = UIScreen.main.bounds
-        var messageLabel: UILabel?
         var imageView: UIImageView?
- 
-        toastyView.checkIsActive()
-        
-        //Position de la view ici
-        toastyView.frame = CGRect(x: 10, y: screenSize.height-110 , width: viewController.view.frame.size.width - 20, height: 100)
-        toastyView.alpha = 0.0
-        toastyView.layer.cornerRadius = 10.0
-        toastyView.backgroundColor = UIColor.yellow.withAlphaComponent(0.3) //pour la transparence
-        toastyView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+        initToastyView(forToast: 2, viewController)
         
         if let image = image {
-            imageView = UIImageView(image: image)
-            imageView?.contentMode = .scaleAspectFit
-            imageView?.frame = CGRect(x: 10.0, y: 10.0, width: 80.0, height: 80.0)
-            toastyView.addSubview(imageView!)
-            imageView?.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint(item: imageView, attribute: .leftMargin, relatedBy: .equal, toItem: toastyView, attribute: .leftMargin, multiplier: 1, constant: 10).isActive = true
-            NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: toastyView, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0).isActive = true
-            NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 80).isActive = true
-            NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 80).isActive = true
+            imageView = createImage(image, forToast: 1)
         }
-        
         
         if let message = message {
-            messageLabel = UILabel()
-            messageLabel?.text = message
-            messageLabel?.numberOfLines = 0
-            messageLabel?.textAlignment = .center
-            messageLabel?.lineBreakMode = .byTruncatingTail;
-            messageLabel?.backgroundColor = UIColor.clear
+            createMessage(message, forToast: 2, with: imageView)
         }
         
-        if let messageLabel = messageLabel {
-            toastyView.addSubview(messageLabel)
-            messageLabel.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint(item: messageLabel, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: toastyView.frame.width - 90).isActive = true //90 parce que 80 taille image et 10 en plus comme ça pour pas coller
-            NSLayoutConstraint(item: messageLabel, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 80).isActive = true
-            NSLayoutConstraint(item: messageLabel, attribute: .leftMargin, relatedBy: .equal, toItem: imageView, attribute: .rightMargin, multiplier: 1, constant: 20).isActive = true
-            NSLayoutConstraint(item: messageLabel, attribute: .centerY, relatedBy: .equal, toItem: toastyView, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
-        }
-        
-        viewController.view.addSubview(toastyView)
-        toastyView.show()
-        toastyView.perform(#selector(hide), with: nil, afterDelay: 3.0)
+        enableToast(viewController)
     }
     
     public static func showToast(viewController: UIViewController, withSimpleImage image: UIImage?) {
-        let screenSize: CGRect = UIScreen.main.bounds
-        var imageView: UIImageView?
-
-        toastyView.checkIsActive()
-        //Position de la view ici
-        toastyView.frame = CGRect(x: 10, y: screenSize.height-110 , width: 100, height: 100)
-        toastyView.alpha = 0.0
-        toastyView.layer.cornerRadius = 10.0
-        toastyView.backgroundColor = UIColor.red.withAlphaComponent(0.3)
-        toastyView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+        initToastyView(forToast: 3, viewController)
         
         if let image = image {
-            imageView = UIImageView(image: image)
-            imageView?.contentMode = .scaleAspectFit
-            imageView?.frame = CGRect(x: 10.0, y: 10.0, width: 80.0, height: 80.0)
-            toastyView.addSubview(imageView!)
-            imageView?.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: toastyView, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-            NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: toastyView, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
-            NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 80).isActive = true
-            NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 80).isActive = true
+            _ = createImage(image, forToast: 3)
         }
         
+        enableToast(viewController)
+    }
+    
+    static func initToastyView(forToast type: Int, _ viewController: UIViewController?) {
+        let screenSize: CGRect = UIScreen.main.bounds
+        toastyView.checkIsActive()
+        
+        //Position de la view ici
+        if (type == 1), let viewController = viewController {
+            toastyView.frame = CGRect(x: 10, y: screenSize.height-60 , width: viewController.view.frame.size.width - 20, height: 50)
+        } else if (type == 2), let viewController = viewController {
+            toastyView.frame = CGRect(x: 10, y: screenSize.height-110 , width: viewController.view.frame.size.width - 20, height: 100)
+        } else {
+            toastyView.frame = CGRect(x: 10, y: screenSize.height-110 , width: 100, height: 100)
+        }
+        toastyView.alpha = 0.0
+        toastyView.layer.cornerRadius = style.cornerRadius
+        toastyView.backgroundColor = style.backgroundColor
+        toastyView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+    }
+    
+    static func createMessage(_ message: String, forToast type: Int, with imageView: UIImageView?) {
+        let ml = UILabel()
+        ml.text = message
+        ml.numberOfLines = style.messageNumberOfLines
+        ml.textAlignment = style.messageAlignment
+        ml.lineBreakMode = style.lineBreakMode
+        ml.backgroundColor = style.backgroundColor
+        ml.textColor = style.messageColor
+        toastyView.addSubview(ml)
+        ml.translatesAutoresizingMaskIntoConstraints = false
+        
+        if (type == 1) {
+            NSLayoutConstraint(item: ml, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: toastyView, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: ml, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: toastyView, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: ml, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: toastyView.frame.width - 40).isActive = true
+            NSLayoutConstraint(item: ml, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 30).isActive = true
+        } else if let imageView = imageView{
+            NSLayoutConstraint(item: ml, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: toastyView.frame.width - 90).isActive = true //90 parce que 80 taille image et 10 en plus comme ça pour pas coller
+            NSLayoutConstraint(item: ml, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 80).isActive = true
+            NSLayoutConstraint(item: ml, attribute: .leftMargin, relatedBy: .equal, toItem: imageView, attribute: .rightMargin, multiplier: 1, constant: 20).isActive = true
+            NSLayoutConstraint(item: ml, attribute: .centerY, relatedBy: .equal, toItem: toastyView, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+        }
+    }
+    
+    static func createImage(_ image: UIImage, forToast type: Int) -> UIImageView {
+        let iv = UIImageView(image: image)
+        iv.contentMode = .scaleAspectFit
+        iv.frame = CGRect(x: 10.0, y: 10.0, width: 80.0, height: 80.0)
+        toastyView.addSubview(iv)
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        
+        if (type == 1) {
+            NSLayoutConstraint(item: iv, attribute: .leftMargin, relatedBy: .equal, toItem: toastyView, attribute: .leftMargin, multiplier: 1, constant: 10).isActive = true
+            NSLayoutConstraint(item: iv, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: toastyView, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: iv, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 80).isActive = true
+            NSLayoutConstraint(item: iv, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 80).isActive = true
+        } else {
+            NSLayoutConstraint(item: iv, attribute: .centerX, relatedBy: .equal, toItem: toastyView, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: iv, attribute: .centerY, relatedBy: .equal, toItem: toastyView, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: iv, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 80).isActive = true
+            NSLayoutConstraint(item: iv, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 80).isActive = true
+        }
+        return iv
+    }
+    
+    static func enableToast(_ viewController: UIViewController) {
         viewController.view.addSubview(toastyView)
         toastyView.show()
         toastyView.perform(#selector(hide), with: nil, afterDelay: 3.0)
     }
     
-    
     // MARK: Animations
     func show() {
-        UIView.animate(withDuration: 0.33, animations: {
+        UIView.animate(withDuration: ToastyView.style.animationDuration, animations: {
             self.alpha = 1.0
         })
     }
@@ -154,7 +139,7 @@ public class ToastyView: UIView {
     @objc func hide() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         
-        UIView.animate(withDuration: 0.33, animations: {
+        UIView.animate(withDuration: ToastyView.style.animationDuration, animations: {
             self.alpha = 0.0
         }, completion: { _ in
             self.removeFromSuperview()
@@ -170,13 +155,13 @@ public class ToastyView: UIView {
 }
 
 public struct ToastyStyle {
-    public init() {}
-    
     //ajoutez ce que vous voulez
     public var cornerRadius: CGFloat = 10.0
     public var backgroundColor: UIColor = UIColor.black.withAlphaComponent(0.8)
     public var messageColor: UIColor = .white
     public var messageAlignment: NSTextAlignment = .left
+    public var lineBreakMode: NSLineBreakMode = .byTruncatingTail
     public var messageNumberOfLines = 0
+    public var animationDuration = 0.33
     
 }
