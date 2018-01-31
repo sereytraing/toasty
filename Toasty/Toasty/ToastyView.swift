@@ -23,6 +23,7 @@ public class ToastyView: UIView {
     //Ne pas oublier de mettre dans le projet dans le Embeded Binaries le framework
     
     static var toastyView = ToastyView()
+    static var style = ToastyStyle()
     
     public static func showToast(viewController: UIViewController, withSimpleMessage message: String?) {
         initToastyView(forToast: 1, viewController)
@@ -72,18 +73,19 @@ public class ToastyView: UIView {
             toastyView.frame = CGRect(x: 10, y: screenSize.height-110 , width: 100, height: 100)
         }
         toastyView.alpha = 0.0
-        toastyView.layer.cornerRadius = 10.0
-        toastyView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        toastyView.layer.cornerRadius = style.cornerRadius
+        toastyView.backgroundColor = style.backgroundColor
         toastyView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
     }
     
     static func createMessage(_ message: String, forToast type: Int, with imageView: UIImageView?) {
         let ml = UILabel()
         ml.text = message
-        ml.numberOfLines = 0
-        ml.textAlignment = .center
-        ml.lineBreakMode = .byTruncatingTail
-        ml.backgroundColor = UIColor.clear
+        ml.numberOfLines = style.messageNumberOfLines
+        ml.textAlignment = style.messageAlignment
+        ml.lineBreakMode = style.lineBreakMode
+        ml.backgroundColor = style.backgroundColor
+        ml.textColor = style.messageColor
         toastyView.addSubview(ml)
         ml.translatesAutoresizingMaskIntoConstraints = false
         
@@ -129,7 +131,7 @@ public class ToastyView: UIView {
     
     // MARK: Animations
     func show() {
-        UIView.animate(withDuration: 0.33, animations: {
+        UIView.animate(withDuration: ToastyView.style.animationDuration, animations: {
             self.alpha = 1.0
         })
     }
@@ -137,7 +139,7 @@ public class ToastyView: UIView {
     @objc func hide() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         
-        UIView.animate(withDuration: 0.33, animations: {
+        UIView.animate(withDuration: ToastyView.style.animationDuration, animations: {
             self.alpha = 0.0
         }, completion: { _ in
             self.removeFromSuperview()
@@ -153,13 +155,13 @@ public class ToastyView: UIView {
 }
 
 public struct ToastyStyle {
-    public init() {}
-    
     //ajoutez ce que vous voulez
     public var cornerRadius: CGFloat = 10.0
     public var backgroundColor: UIColor = UIColor.black.withAlphaComponent(0.8)
     public var messageColor: UIColor = .white
     public var messageAlignment: NSTextAlignment = .left
+    public var lineBreakMode: NSLineBreakMode = .byTruncatingTail
     public var messageNumberOfLines = 0
+    public var animationDuration = 0.33
     
 }
