@@ -11,5 +11,7 @@ notifications:
   email: false
 before_install:
   - gem install bundler
-  - bundle install
-script: bundle exec fastlane toastyTest
+  - gem update fastlane
+  - brew update
+  - bundle install && brew bundle
+script: bundle exec fastlane toasty_deploy
