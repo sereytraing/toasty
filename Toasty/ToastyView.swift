@@ -71,7 +71,7 @@ public class ToastyView: UIView {
         } else if (type == 2), let viewController = viewController {
             toastyView.frame = CGRect(x: 10, y: screenSize.height-110 , width: viewController.view.frame.size.width - 20, height: 100)
         } else {
-            toastyView.frame = CGRect(x: 10, y: screenSize.height-110 , width: 100, height: 100)
+            toastyView.frame = CGRect(x: screenSize.width/2 - 50, y: screenSize.height-110 , width: 100, height: 100)
         }
         toastyView.alpha = 0.0
         toastyView.layer.cornerRadius = toastyStyle.cornerRadius
