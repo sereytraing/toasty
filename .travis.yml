@@ -13,5 +13,5 @@ before_install:
   - gem install bundler
   - gem update fastlane
   - brew update
-  - bundle install && brew bundle
+  - bundle install
 script: bundle exec fastlane toasty_deploy
