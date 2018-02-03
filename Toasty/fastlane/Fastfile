@@ -1,0 +1,27 @@
+lane :toastyTest do
+  #scan(
+  #  code_coverage: true,
+  #  open_report: true
+  #)
+  scan
+  if git_branch() == "master"
+    toasty_deploy
+  end
+  if git_branch() == "develop"
+  end
+end
+
+lane :toasty_deploy do
+    version = get_version_number()
+    version = increment_version_number(
+      bump_type: "minor" # Automatically increment minor version number
+    )
+    set_github_release(
+      repository_name: "sereytraing/toasty",
+      name: version,
+      tag_name: "v#{version}",
+      api_token: ENV["GITHUB_TOKEN"],
+      #description: changelog_from_git_commits(),
+      commitish: "master"
+    )
+end

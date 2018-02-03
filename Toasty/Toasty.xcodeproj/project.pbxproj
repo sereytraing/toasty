@@ -9,13 +9,28 @@
 /* Begin PBXBuildFile section */
 		0FB333C520040EBD00833560 /* Toasty.h in Headers */ = {isa = PBXBuildFile; fileRef = 0FB333C320040EBD00833560 /* Toasty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0FB333CC20040F0700833560 /* ToastyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB333CB20040F0700833560 /* ToastyView.swift */; };
+		0FEA08822025AF6200B037E5 /* ToastyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA08812025AF6200B037E5 /* ToastyTests.swift */; };
+		0FEA08842025AF6300B037E5 /* Toasty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB333C020040EBD00833560 /* Toasty.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0FEA08852025AF6300B037E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0FB333B720040EBD00833560 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0FB333BF20040EBD00833560;
+			remoteInfo = Toasty;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0FB333C020040EBD00833560 /* Toasty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Toasty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FB333C320040EBD00833560 /* Toasty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Toasty.h; sourceTree = "<group>"; };
 		0FB333C420040EBD00833560 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FB333CB20040F0700833560 /* ToastyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastyView.swift; sourceTree = "<group>"; };
+		0FEA087F2025AF6200B037E5 /* ToastyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToastyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FEA08812025AF6200B037E5 /* ToastyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastyTests.swift; sourceTree = "<group>"; };
+		0FEA08832025AF6300B037E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +41,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0FEA087C2025AF6200B037E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0FEA08842025AF6300B037E5 /* Toasty.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				0FB333C220040EBD00833560 /* Toasty */,
+				0FEA08802025AF6200B037E5 /* ToastyTests */,
 				0FB333C120040EBD00833560 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				0FB333C020040EBD00833560 /* Toasty.framework */,
+				0FEA087F2025AF6200B037E5 /* ToastyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -53,6 +78,15 @@
 				0FB333C420040EBD00833560 /* Info.plist */,
 			);
 			path = Toasty;
+			sourceTree = "<group>";
+		};
+		0FEA08802025AF6200B037E5 /* ToastyTests */ = {
+			isa = PBXGroup;
+			children = (
+				0FEA08812025AF6200B037E5 /* ToastyTests.swift */,
+				0FEA08832025AF6300B037E5 /* Info.plist */,
+			);
+			path = ToastyTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,18 +121,41 @@
 			productReference = 0FB333C020040EBD00833560 /* Toasty.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		0FEA087E2025AF6200B037E5 /* ToastyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0FEA08872025AF6300B037E5 /* Build configuration list for PBXNativeTarget "ToastyTests" */;
+			buildPhases = (
+				0FEA087B2025AF6200B037E5 /* Sources */,
+				0FEA087C2025AF6200B037E5 /* Frameworks */,
+				0FEA087D2025AF6200B037E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0FEA08862025AF6300B037E5 /* PBXTargetDependency */,
+			);
+			name = ToastyTests;
+			productName = ToastyTests;
+			productReference = 0FEA087F2025AF6200B037E5 /* ToastyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		0FB333B720040EBD00833560 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "TRAING Serey";
 				TargetAttributes = {
 					0FB333BF20040EBD00833560 = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0920;
+						ProvisioningStyle = Automatic;
+					};
+					0FEA087E2025AF6200B037E5 = {
+						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -116,12 +173,20 @@
 			projectRoot = "";
 			targets = (
 				0FB333BF20040EBD00833560 /* Toasty */,
+				0FEA087E2025AF6200B037E5 /* ToastyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0FB333BE20040EBD00833560 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0FEA087D2025AF6200B037E5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -139,7 +204,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0FEA087B2025AF6200B037E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0FEA08822025AF6200B037E5 /* ToastyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0FEA08862025AF6300B037E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0FB333BF20040EBD00833560 /* Toasty */;
+			targetProxy = 0FEA08852025AF6300B037E5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0FB333C620040EBD00833560 /* Debug */ = {
@@ -298,6 +379,32 @@
 			};
 			name = Release;
 		};
+		0FEA08882025AF6300B037E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = ToastyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.alkrox.ToastyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0FEA08892025AF6300B037E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = ToastyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.alkrox.ToastyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -315,6 +422,15 @@
 			buildConfigurations = (
 				0FB333C920040EBD00833560 /* Debug */,
 				0FB333CA20040EBD00833560 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0FEA08872025AF6300B037E5 /* Build configuration list for PBXNativeTarget "ToastyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0FEA08882025AF6300B037E5 /* Debug */,
+				0FEA08892025AF6300B037E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
