@@ -1,0 +1,15 @@
+lane :toastyTest do
+  #scan(
+  #  code_coverage: true,
+  #  open_report: true
+  #)
+  scan
+  if git_branch() == "master"
+    toasty_deploy
+  end
+end
+
+lane :toasty_deploy do
+  #pod_lib_lint
+  #pod_push
+end
