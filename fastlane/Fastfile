@@ -20,7 +20,7 @@ lane :toasty_deploy do
       repository_name: "sereytraing/toasty",
       name: version,
       tag_name: "v#{version}",
-      api_token: ENV["GITHUB_TOKEN"],
+      api_token: "973668646a45d31de636566a16daae370d0d0bca",
       description: "Test Toasty",
       commitish: "master"
     )
