@@ -7,6 +7,8 @@ lane :toastyTest do
   if git_branch() == "master"
     toasty_deploy
   end
+  if git_branch() == "develop"
+  end
 end
 
 lane :toasty_deploy do
