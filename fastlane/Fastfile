@@ -15,7 +15,7 @@ lane :toasty_deploy do
       plist_path: "Toasty/Info.plist", # Path to info plist file, relative to xcodeproj
       app_identifier: "com.alkrox.Toasty"
     )
-    version = increment_version_number(
+    #version = increment_version_number(
       bump_type: "minor"
     )
 
