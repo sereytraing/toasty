@@ -22,7 +22,7 @@ lane :toasty_deploy do
       description: "Test Toasty",
       commitish: "master"
     )
-
+    version_bump_podspec(path: "Toasty_MVS.podspec", version_number: version)
     pod_push(path: "Toasty_MVS.podspec")
 end
 
