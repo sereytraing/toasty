@@ -1,4 +1,7 @@
-# Toasty 
+<p><img width=60% src="https://image.noelshack.com/fichiers/2018/05/7/1517784879-toasty-logo.png"></p>
+
+
+
 [![Build Status](https://travis-ci.org/sereytraing/toasty.svg?branch=master)](https://travis-ci.org/sereytraing/toasty)
 [![CocoaPods Version](https://img.shields.io/cocoapods/v/Toasty_MVS.svg)](http://cocoadocs.org/)
 
@@ -79,4 +82,4 @@ ToastyView.showToast(viewController: self, withSimpleImage: UIImage(named: "imag
 ```
 ### Tools
 
-We use [Travis](https://travis-ci.org) for Continuous integration and [fastlane](https://fastlane.tools/) for Automation and release.
+We use [Travis](https://travis-ci.org/sereytraing/toasty/) for Continuous integration and [fastlane](https://fastlane.tools/) for Automation and release.
