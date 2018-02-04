@@ -23,7 +23,7 @@ lane :toasty_deploy do
       commitish: "master"
     )
 
-    pod_push(path: "../Toasty_MVS.podspec")
+    pod_push
 end
 
 lane :toasty_patched do
