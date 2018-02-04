@@ -4,6 +4,10 @@
 
 iOS Framework Project
 
+Screenshots
+--------------
+![Toasty Screenshots](https://image.noelshack.com/fichiers/2018/05/7/1517762931-screen.png)
+
 Installation
 --------------
 ```
