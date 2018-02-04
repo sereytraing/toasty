@@ -28,7 +28,7 @@ lane :toasty_deploy do
       commitish: "master"
     )
     version_bump_podspec(path: "Toasty_MVS.podspec", bump_type: "minor")
-    pod_push
+    #pod_push
 end
 
 lane :toasty_patched do
