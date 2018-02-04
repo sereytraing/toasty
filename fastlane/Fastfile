@@ -13,6 +13,7 @@ lane :toasty_deploy do
     version = increment_version_number(
       bump_type: "minor" # Automatically increment minor version number
     )
+
     set_github_release(
       repository_name: "sereytraing/toasty",
       name: version,
@@ -21,6 +22,8 @@ lane :toasty_deploy do
       description: "Test Toasty",
       commitish: "master"
     )
+
+    pod_push(path: "Toasty_MVS.podspec")
 end
 
 lane :toasty_patched do
