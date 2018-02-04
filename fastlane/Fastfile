@@ -16,8 +16,8 @@ lane :toasty_deploy do
       app_identifier: "com.alkrox.Toasty"
     )
     #version = increment_version_number(
-      bump_type: "minor"
-    )
+    #  bump_type: "minor"
+    #)
 
 
     #version = increment_version_number(
