@@ -29,6 +29,7 @@ public class ToastyView: UIView {
     static var SIMPLE_IMAGE = 3;
     
     static var NO_TEXT = "no_text_found"
+    static var NO_IMAGE = UIImage(named: "no_image", in: Bundle(for: ToastyView.self), compatibleWith: nil)!
     
     public static var LENGHT_SHORT = 1.0
     public static var LENGHT_LONG = 5.0
@@ -58,7 +59,7 @@ public class ToastyView: UIView {
         if let image = image {
             imageView = createImage(image, forToast: SIMPLE_MESSAGE)
         } else {
-            imageView = createImage(UIImage(named: "no_image", in: Bundle(for: ToastyView.self), compatibleWith: nil)!, forToast: SIMPLE_MESSAGE)
+            imageView = createImage(NO_IMAGE, forToast: SIMPLE_MESSAGE)
 
         }
         
@@ -77,7 +78,7 @@ public class ToastyView: UIView {
         if let image = image {
             _ = createImage(image, forToast: SIMPLE_IMAGE)
         } else {
-            _ = createImage(UIImage(named: "no_image", in: Bundle(for: ToastyView.self), compatibleWith: nil)!, forToast: SIMPLE_IMAGE)
+            _ = createImage(NO_IMAGE, forToast: SIMPLE_IMAGE)
         }
         enableToast(viewController)
     }
@@ -88,10 +89,6 @@ public class ToastyView: UIView {
         
         //Position de la view ici
         if (type == SIMPLE_MESSAGE), let viewController = viewController {
-            let point = CGPoint(x: screenSize.width/2, y: screenSize.height-60)
-            let size = CGSize(width: 100, height: 50)
-            let rect = CGRect(origin: point, size: size)
-
             toastyView.frame = CGRect(x: 10, y: screenSize.height-60 , width: viewController.view.frame.size.width - 20, height: 50)
         } else if (type == MESSAGE_AND_IMAGE), let viewController = viewController {
             toastyView.frame = CGRect(x: 10, y: screenSize.height-110 , width: viewController.view.frame.size.width - 20, height: 100)
@@ -207,10 +204,10 @@ public struct ToastyStyle {
     
     //ajoutez ce que vous voulez
     public var cornerRadius: CGFloat = 10.0
-    public var backgroundColor: UIColor = UIColor.black.withAlphaComponent(0.8)
+    public var backgroundColor: UIColor = ToastyView.DEBUG_NO
     public var messageColor: UIColor = .white
     public var messageBackgroundColor: UIColor = .clear
-    public var messageAlignment: NSTextAlignment = .left
+    public var messageAlignment: NSTextAlignment = .center
     public var lineBreakMode: NSLineBreakMode = .byTruncatingTail
     public var messageNumberOfLines = 0
     public var animationDuration = ToastyView.LENGHT_SHORT
