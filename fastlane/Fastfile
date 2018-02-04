@@ -23,6 +23,7 @@ lane :toasty_deploy do
       commitish: "master"
     )
 
+    version_bump_podspec(path: "Toasty_MVS.podspec", bump_type: "minor")
     pod_push
 end
 
@@ -31,6 +32,7 @@ lane :toasty_patched do
   version = increment_version_number(
     bump_type: "patch"
   )
+  version_bump_podspec(path: "Toasty_MVS.podspec", bump_type: "patch")
 end
 
 lane :toasty_noretrovers do
