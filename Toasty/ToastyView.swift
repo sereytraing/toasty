@@ -24,73 +24,98 @@ public class ToastyView: UIView {
     
     static var toastyView = ToastyView()
     static var style = ToastyStyle()
+    static var SIMPLE_MESSAGE = 1;
+    static var MESSAGE_AND_IMAGE = 2;
+    static var SIMPLE_IMAGE = 3;
     
-    public static func showToast(viewController: UIViewController, withSimpleMessage message: String?, toastyStyle: ToastyStyle? = nil) {
-        let tStyle = checkToastyStyle(style: toastyStyle)
-        
-        initToastyView(forToast: 1, viewController, tStyle)
+    static var NO_TEXT = "no_text_found"
+    
+    public static var LENGHT_SHORT = 1.0
+    public static var LENGHT_LONG = 5.0
+    
+    public static var DEBUG_NO = UIColor.black.withAlphaComponent(0.8)
+    public static var DEBUG_OK = UIColor.green.withAlphaComponent(0.8)
+    public static var DEBUG_KO = UIColor.red.withAlphaComponent(0.8)
+    
+    public static func showToast(viewController: UIViewController, withSimpleMessage message: String?, toastyStyle: ToastyStyle? = nil, length: Double? = nil, isDebug: UIColor? = nil) {
+        checkToastyStyle(style: toastyStyle, length: length, isDebug: isDebug)
+
+        initToastyView(forToast: SIMPLE_MESSAGE, viewController)
         if let message = message {
-            createMessage(message, forToast:1, with: nil, toastyStyle: tStyle)
+            createMessage(message, forToast:SIMPLE_MESSAGE, with: nil)
+        } else {
+            createMessage(NO_TEXT, forToast:SIMPLE_MESSAGE, with: nil)
         }
         enableToast(viewController)
     }
     
-    public static func showToast(viewController: UIViewController, withMessage message: String?, andImage image: UIImage?, toastyStyle: ToastyStyle? = nil) {
+    public static func showToast(viewController: UIViewController, withMessage message: String?, andImage image: UIImage?, toastyStyle: ToastyStyle? = nil, length: Double? = nil, isDebug: UIColor? = nil) {
         var imageView: UIImageView?
-        let tStyle = checkToastyStyle(style: toastyStyle)
-        
-        initToastyView(forToast: 2, viewController, tStyle)
+        checkToastyStyle(style: toastyStyle, length: length, isDebug: isDebug)
+
+        initToastyView(forToast: MESSAGE_AND_IMAGE, viewController)
         
         if let image = image {
-            imageView = createImage(image, forToast: 1)
+            imageView = createImage(image, forToast: SIMPLE_MESSAGE)
+        } else {
+            imageView = createImage(UIImage(named: "no_image", in: Bundle(for: ToastyView.self), compatibleWith: nil)!, forToast: SIMPLE_MESSAGE)
+
         }
         
         if let message = message {
-            createMessage(message, forToast: 2, with: imageView, toastyStyle: tStyle)
+            createMessage(message, forToast: MESSAGE_AND_IMAGE, with: imageView)
+        } else {
+            createMessage(NO_TEXT, forToast: MESSAGE_AND_IMAGE, with: imageView)
         }
         
         enableToast(viewController)
     }
     
-    public static func showToast(viewController: UIViewController, withSimpleImage image: UIImage?, toastyStyle: ToastyStyle? = nil) {
-        let tStyle = checkToastyStyle(style: toastyStyle)
-        initToastyView(forToast: 3, viewController, tStyle)
+    public static func showToast(viewController: UIViewController, withSimpleImage image: UIImage?, toastyStyle: ToastyStyle? = nil, length: Double? = nil, isDebug: UIColor? = nil) {
+        checkToastyStyle(style: toastyStyle, length: length, isDebug: isDebug)
+        initToastyView(forToast: SIMPLE_IMAGE, viewController)
         if let image = image {
-            _ = createImage(image, forToast: 3)
+            _ = createImage(image, forToast: SIMPLE_IMAGE)
+        } else {
+            _ = createImage(UIImage(named: "no_image", in: Bundle(for: ToastyView.self), compatibleWith: nil)!, forToast: SIMPLE_IMAGE)
         }
         enableToast(viewController)
     }
     
-    static func initToastyView(forToast type: Int, _ viewController: UIViewController?, _ toastyStyle: ToastyStyle) {
+    static func initToastyView(forToast type: Int, _ viewController: UIViewController?) {
         let screenSize: CGRect = UIScreen.main.bounds
         toastyView.checkIsActive()
         
         //Position de la view ici
-        if (type == 1), let viewController = viewController {
+        if (type == SIMPLE_MESSAGE), let viewController = viewController {
+            let point = CGPoint(x: screenSize.width/2, y: screenSize.height-60)
+            let size = CGSize(width: 100, height: 50)
+            let rect = CGRect(origin: point, size: size)
+
             toastyView.frame = CGRect(x: 10, y: screenSize.height-60 , width: viewController.view.frame.size.width - 20, height: 50)
-        } else if (type == 2), let viewController = viewController {
+        } else if (type == MESSAGE_AND_IMAGE), let viewController = viewController {
             toastyView.frame = CGRect(x: 10, y: screenSize.height-110 , width: viewController.view.frame.size.width - 20, height: 100)
         } else {
             toastyView.frame = CGRect(x: screenSize.width/2 - 50, y: screenSize.height-110 , width: 100, height: 100)
         }
         toastyView.alpha = 0.0
-        toastyView.layer.cornerRadius = toastyStyle.cornerRadius
-        toastyView.backgroundColor = toastyStyle.backgroundColor
+        toastyView.layer.cornerRadius = ToastyView.style.cornerRadius
+        toastyView.backgroundColor = style.backgroundColor
         toastyView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
     }
     
-    static func createMessage(_ message: String, forToast type: Int, with imageView: UIImageView?, toastyStyle: ToastyStyle) {
+    static func createMessage(_ message: String, forToast type: Int, with imageView: UIImageView?) {
         let ml = UILabel()
         ml.text = message
-        ml.numberOfLines = toastyStyle.messageNumberOfLines
-        ml.textAlignment = toastyStyle.messageAlignment
-        ml.lineBreakMode = toastyStyle.lineBreakMode
-        ml.backgroundColor = toastyStyle.messageBackgroundColor
-        ml.textColor = toastyStyle.messageColor
+        ml.numberOfLines = ToastyView.style.messageNumberOfLines
+        ml.textAlignment = style.messageAlignment
+        ml.lineBreakMode = style.lineBreakMode
+        ml.backgroundColor = style.messageBackgroundColor
+        ml.textColor = style.messageColor
         toastyView.addSubview(ml)
         ml.translatesAutoresizingMaskIntoConstraints = false
         
-        if (type == 1) {
+        if (type == SIMPLE_MESSAGE) {
             NSLayoutConstraint(item: ml, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: toastyView, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0).isActive = true
             NSLayoutConstraint(item: ml, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: toastyView, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0).isActive = true
             NSLayoutConstraint(item: ml, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: toastyView.frame.width - 40).isActive = true
@@ -110,7 +135,7 @@ public class ToastyView: UIView {
         toastyView.addSubview(iv)
         iv.translatesAutoresizingMaskIntoConstraints = false
         
-        if (type == 1) {
+        if (type == SIMPLE_MESSAGE) {
             NSLayoutConstraint(item: iv, attribute: .leftMargin, relatedBy: .equal, toItem: toastyView, attribute: .leftMargin, multiplier: 1, constant: 10).isActive = true
             NSLayoutConstraint(item: iv, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: toastyView, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0).isActive = true
             NSLayoutConstraint(item: iv, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 80).isActive = true
@@ -127,19 +152,19 @@ public class ToastyView: UIView {
     static func enableToast(_ viewController: UIViewController) {
         viewController.view.addSubview(toastyView)
         toastyView.show()
-        toastyView.perform(#selector(hide), with: nil, afterDelay: 3.0)
+        toastyView.perform(#selector(hide), with: nil, afterDelay: ToastyView.style.animationDuration)
     }
     
     // MARK: Animations
     func show() {
-        UIView.animate(withDuration: ToastyView.style.animationDuration, animations: {
+        UIView.animate(withDuration: 0.33, animations: {
             self.alpha = 1.0
         })
     }
     
     @objc func hide() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        UIView.animate(withDuration: ToastyView.style.animationDuration, animations: {
+        UIView.animate(withDuration: 0.33, animations: {
             self.alpha = 0.0
         }, completion: { _ in
             self.removeFromSuperview()
@@ -153,11 +178,26 @@ public class ToastyView: UIView {
         ToastyView.toastyView = ToastyView()
     }
     
-    static func checkToastyStyle(style: ToastyStyle?) -> ToastyStyle{
-        if let userStyle = style {
-            return userStyle
+    static func checkToastyStyle(style: ToastyStyle?, length : Double?, isDebug : UIColor?){
+        if var userStyle = style {
+            if let userLength = length {
+                userStyle.animationDuration = userLength
+            }
+            if let userIsDebug = isDebug {
+                userStyle.backgroundColor = userIsDebug
+            }
+            
+            if userStyle.animationDuration > LENGHT_LONG {
+                userStyle.animationDuration = LENGHT_LONG
+            } else if userStyle.animationDuration > LENGHT_SHORT {
+                userStyle.animationDuration = LENGHT_SHORT
+            }
+            if userStyle.messageNumberOfLines > 5{
+                userStyle.messageNumberOfLines = 5
+            }
+            ToastyView.style = userStyle
         } else {
-            return ToastyStyle()
+            ToastyView.style = ToastyStyle()
         }
     }
 }
@@ -173,6 +213,5 @@ public struct ToastyStyle {
     public var messageAlignment: NSTextAlignment = .left
     public var lineBreakMode: NSLineBreakMode = .byTruncatingTail
     public var messageNumberOfLines = 0
-    public var animationDuration = 0.33
-    
+    public var animationDuration = ToastyView.LENGHT_SHORT
 }
