@@ -9,7 +9,7 @@ lane :toasty do
 end
 
 lane :toasty_deploy do
-    #version = get_version_number()
+    version = get_version_number()
 
     update_app_identifier(
       plist_path: "Toasty/Info.plist", # Path to info plist file, relative to xcodeproj
