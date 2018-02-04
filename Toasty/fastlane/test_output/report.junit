@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<testsuites name='ToastyTests.xctest' tests='1' failures='0'>
-  <testsuite name='ToastyTests.ToastyTests' tests='1' failures='0'>
-    <testcase classname='ToastyTests.ToastyTests' name='testtrue' time='0.003'/>
-  </testsuite>
-</testsuites>

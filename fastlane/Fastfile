@@ -1,13 +1,10 @@
-lane :toastyTest do
-  #scan(
-  #  code_coverage: true,
-  #  open_report: true
-  #)
+lane :toasty do
   scan
   if git_branch() == "master"
     toasty_deploy
   end
-  if git_branch() == "develop"
+  if git_branch() == "patch"
+    toasty_patched
   end
 end
 
@@ -24,4 +21,18 @@ lane :toasty_deploy do
       description: "Test Toasty",
       commitish: "master"
     )
+end
+
+lane :toasty_patched do
+  version = get_version_number()
+  version = increment_version_number(
+    bump_type: "patch"
+  )
+end
+
+lane :toasty_noretrovers do
+  version = get_version_number()
+  version = increment_version_number(
+    bump_type: "major"
+  )
 end

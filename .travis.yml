@@ -7,9 +7,12 @@ branches:
   only:
     - develop
     - master
+    - patch
 notifications:
   email: false
+  slack: projetchaos-esgi:KFVAv8xsSyzpX0POOYdEbiJ9
 before_install:
   - gem install bundler
+  - gem update fastlane
   - bundle install
-script: bundle exec fastlane toastyTest
+script: bundle exec fastlane toasty
