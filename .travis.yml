@@ -13,6 +13,5 @@ notifications:
 before_install:
   - gem install bundler
   - gem update fastlane
-  - brew update
   - bundle install
-script: bundle exec fastlane toasty_deploy
+script: bundle exec fastlane toasty
