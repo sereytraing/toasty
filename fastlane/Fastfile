@@ -22,7 +22,7 @@ lane :toasty_deploy do
       description: "Test Toasty",
       commitish: "master"
     )
-
+    add_git_tag
     version_bump_podspec(path: "Toasty_MVS.podspec", bump_type: "minor")
     pod_push
 end
