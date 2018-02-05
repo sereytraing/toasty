@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Toasty_MVS'
-  s.version = '1.15.0'
+  s.version = '2.2.0'
   s.license = 'MIT'
   s.summary = 'Avoir les toasts sur iOS'
   s.homepage = 'https://github.com/sereytraing/toasty'
