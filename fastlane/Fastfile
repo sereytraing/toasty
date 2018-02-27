@@ -48,6 +48,8 @@ lane :toasty_deploy_patch do
 end
 
 lane :toasty_deploy_travis do
+  version = get_version_number()
+  
   set_github_release(
     repository_name: "sereytraing/toasty",
     name: version,
