@@ -1,9 +1,11 @@
 before_all do
-  ensure_git_status_clean
 end
 
 lane :toasty do
-  scan
+  scan (
+    code_coverage: true,
+    open_report: true
+  )
   if git_branch() == "master"
     toasty_deploy_travis
   end
@@ -17,7 +19,7 @@ lane :toasty_deploy_minor do
     )
 
     version_bump_podspec(path: "Toasty_MVS.podspec", bump_type: "minor")
-
+    git_commit(path: ["./Toasty.xcodeproj", "./Toasty/Info.plist", "./ToastyTests/Info.plist"], message: "Version Bump")
     push_to_git_remote(
       remote: "origin",
       local_branch: "develop",
@@ -35,7 +37,7 @@ lane :toasty_deploy_patch do
     )
 
     version_bump_podspec(path: "Toasty_MVS.podspec", bump_type: "patch")
-
+    git_commit(path: ["./Toasty.xcodeproj", "./Toasty/Info.plist", "./ToastyTests/Info.plist"], message: "Version Bump")
     push_to_git_remote(
       remote: "origin",
       local_branch: "patch",
