@@ -1,47 +1,63 @@
+before_all do
+end
+
 lane :toasty do
-  scan
+  scan(
+    code_coverage,
+    open_report: true
+  )
   if git_branch() == "master"
-    toasty_deploy
-  end
-  if git_branch() == "patch"
-    toasty_patched
+    toasty_deploy_travis
   end
 end
 
-lane :toasty_deploy do
+lane :toasty_deploy_minor do
     version = get_version_number()
-    #update_app_identifier(
-    #  plist_path: "Toasty/Info.plist", # Path to info plist file, relative to xcodeproj
-    #  app_identifier: "com.alkrox.Toasty"
-    #)
 
     version = increment_version_number(
-      bump_type: "minor" # Automatically increment minor version number
+      bump_type: "minor"
     )
 
-    set_github_release(
-      repository_name: "sereytraing/toasty",
-      name: version,
-      tag_name: "v#{version}",
-      api_token: ENV["GITHUB_TOKEN"],
-      description: "Test Toasty",
-      commitish: "master"
-    )
     version_bump_podspec(path: "Toasty_MVS.podspec", bump_type: "minor")
-    #pod_push
+    git_commit(path: ["./Toasty.xcodeproj", "./Toasty/Info.plist", "./ToastyTests/Info.plist"], message: "Version Bump")
+    push_to_git_remote(
+      remote: "origin",
+      local_branch: "develop",
+      remote_branch: "master",
+      force: true,
+      tags: false
+    )
 end
 
-lane :toasty_patched do
-  version = get_version_number()
-  version = increment_version_number(
-    bump_type: "patch"
-  )
-  version_bump_podspec(path: "Toasty_MVS.podspec", bump_type: "patch")
+lane :toasty_deploy_patch do
+    version = get_version_number()
+
+    version = increment_version_number(
+      bump_type: "patch"
+    )
+
+    version_bump_podspec(path: "Toasty_MVS.podspec", bump_type: "patch")
+    git_commit(path: ["./Toasty.xcodeproj", "./Toasty/Info.plist", "./ToastyTests/Info.plist"], message: "Version Bump")
+    push_to_git_remote(
+      remote: "origin",
+      local_branch: "patch",
+      remote_branch: "master",
+      force: true,
+      tags: false
+    )
 end
 
-lane :toasty_noretrovers do
+lane :toasty_deploy_travis do
   version = get_version_number()
-  version = increment_version_number(
-    bump_type: "major"
+
+  set_github_release(
+    repository_name: "sereytraing/toasty",
+    name: version,
+    tag_name: "v#{version}",
+    api_token: ENV["GITHUB_TOKEN"],
+    description: "Test Toasty",
+    commitish: "master"
   )
+
+  #pod_push
 end
