@@ -2,8 +2,8 @@ before_all do
 end
 
 lane :toasty do
-  scan (
-    code_coverage: true,
+  scan(
+    code_coverage,
     open_report: true
   )
   if git_branch() == "master"
