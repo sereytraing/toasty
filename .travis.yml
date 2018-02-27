@@ -14,4 +14,4 @@ notifications:
 before_install:
   - gem install bundler
   - gem update fastlane
-script: bundle exec fastlane toasty_deploy_travis
+script: bundle exec fastlane toasty
